@@ -1,0 +1,9 @@
+<!-- This is the show user page -->
+<h1>
+	<%= @user.name %>
+	<%= @user.age %>
+
+	<!-- We can optimize this by using link_to tag with the name of the route -->
+	<!-- <a href="/users/index">All Users</a> -->
+	<%= link_to "All Users", users_index_path %>
+</h1>

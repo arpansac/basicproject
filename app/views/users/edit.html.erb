@@ -1,0 +1,29 @@
+<h1>Edit User</h1>
+<!-- if we had to do this manually, then we would need to fill in the value attribute of each input tag -->
+<!-- <form method="post" action="/users/<%= @user.id %>/edit">
+
+	<label for="name">Name</label>
+	<input id="name" name="name" value="<%= @user.name %>">
+	<br>
+	<label for="age">Age</label>
+	<input type="number" min="0" id="age" name="age" value="<%= @user.age %>" required>
+
+<br>
+	<input type="submit" value="Create User">
+</form> -->
+
+
+
+<!-- the difference between this and new.html.erb form is that @user is a persistent (stored in database table) object here, but in 'new' it was an empty object -->
+<!-- Make sure to delete the above form before running this code` -->
+<%= form_for @user do |f| %>
+	<%= f.label :name %>
+	<%= f.text_field :name %>
+	<br>
+	<%= f.label :age %>
+	<%= f.number_field :age %>
+	<br>
+	<%= f.submit %>
+
+
+<% end %>

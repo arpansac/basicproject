@@ -19,8 +19,8 @@
 	<input type="submit" value="Create User">
 </form> -->
 
-
-<%= form_for @user do |f| %>
+<!-- works without url also because it accesses it by default -->
+<%= form_for @user, url: users_path do |f| %>
 	<%= f.label :name %>
 	<%= f.text_field :name %>
 	<br>

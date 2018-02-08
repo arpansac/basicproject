@@ -3,6 +3,15 @@
 	<% @all_users.each do |u| %>
 	<p><%= u.name %></p>
 	<p><%= u.age %></p>
+
+	<!-- <a href="/users/<%= u.id %>/edit">Edit</a> -->
+	<%= link_to "Edit", user_edit_path(u.id)%>
+	<!-- link_to replaces <a> tag with the benefit of using the name of the route  -->
+
+
+
+	<a href="/users/<%= u.id %>/">Show Details</a>
+	<hr>
 	<% end %>
 </main>
 
