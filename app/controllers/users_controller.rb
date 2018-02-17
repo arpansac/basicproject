@@ -1,9 +1,8 @@
 class UsersController < ApplicationController
   
-# Our Convention To Code
-# create action
-# create route
-# create view if required
+  # before_action :set_user, only: [:show, :edit, :update]
+  before_action :set_current_user
+  before_action :user_signed_in?, only: [:create, :edit, :new]
 
 
   # lists all the users
@@ -27,21 +26,17 @@ class UsersController < ApplicationController
   	redirect_to action: 'index'
   end
 
-  # displays information of a user
   def show
     user_id = params[:id]
     @user = User.find(user_id)
   end
 
-  # renders the page to edit the information of a user
   def edit
     @user = User.find(params[:id])
   end
 
 
-  # takes data from the form on edit.html.erb and updates the information of the user
   def update
-    # byebug
     @user = User.find(params[:id])
 
     @user.update(user_params)
@@ -51,14 +46,78 @@ class UsersController < ApplicationController
 
   # ********************ASSIGNMENT 
   # create delete functionality from CRUD
+  def destroy
+    @user = User.find(params[:id])
+    @user.destroy
+
+    redirect_to action: 'index'
+  end
+
+  # sample for creating a done/undone method for a todo app
+  # def toggle_status
+  #   @task.done=!@task.done
+  #   @task.save
+  #   re
+  # end
+
+
+  # action to render sign_in page
+  def sign_in
+
+  end
+
+  # method to verify the login credentials of a user and add the id to cookies
+  def create_session
+    # byebug
+    user = User.find_by(
+        email: params[:email],
+        password: params[:password]
+      )
+
+    if (user.nil?)
+      redirect_to action: "sign_in"
+    else
+      session[:user_id] = user.id
+
+      redirect_to "/users/#{user.id}"
+    end
+
+  end
+
+  # delete the signed in user from cookies
+  def sign_out
+    if @current_user
+      session.delete(:user_id)
+      redirect_to action: "index"
+    end
+  end
+
 
 
   private
-  # uptimizes the repeated code written in both create and update
-  def user_params
-    # it makes sure that params contains a key called :user and then returns all the key-values inside it
-    params.require(:user).permit(:name, :age)
+
+  def set_current_user
+    byebug
+    @current_user = User.find_by(id: session[:user_id])
   end
+
+  def user_signed_in?
+    if @current_user.blank?
+      redirect_to action: "sign_in"
+    end
+
+  end
+
+
+  def user_params
+    params.require(:user).permit(:name, :age, :email, :password)
+  end
+
+
+  # set @user before calling certain actions
+  # def set_user
+  #   @user = User.find(params[:id])
+  # end
 
 
 

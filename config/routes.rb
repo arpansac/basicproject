@@ -4,10 +4,15 @@ Rails.application.routes.draw do
   # try rake routes in the terminal to see
   resources :posts
 
+  get 'users/sign_in', as: "user_sign_in"
+  post 'users/create_session', as: "user_create_session"
+  delete 'users/sign_out', as: "user_sign_out"
+
 
   get 'users/index'
   get 'users/new'
   get 'users/:id' => "users#show"
+  delete 'users/:id' => "users#destroy", as: "user_destroy"
   get 'users/:id/edit' => "users#edit", as: "user_edit"
   patch 'users/:id/update' => "users#update", as: "user"
 
@@ -23,5 +28,14 @@ Rails.application.routes.draw do
   get "application/hello_world"
    get "abc" => "application#hello_world"  
 
+
+   root "users#index"
   
 end
+
+
+
+
+
+
+

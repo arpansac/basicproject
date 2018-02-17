@@ -8,7 +8,30 @@
 </head>
 <body>
 	<!-- <h1>Layout Call Started</h1> -->
+
+	<header>
+		<div>
+			<p>My Logo</p>
+		</div>
+		<nav>
+			<% if @current_user %>
+			<p><%= @current_user.name %></p>
+			<p><%= link_to "Sign Out", user_sign_out_path, method: :delete %></p>
+			<%else%>
+			<%= link_to "Sign in", user_sign_in_path %>
+			<% end %>
+		</nav>
+	</header>
 <%= yield %>
 	<!-- <h1>Layout Call Ended</h1> -->
 </body>
 </html>
+
+
+
+
+
+
+
+
+

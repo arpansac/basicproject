@@ -11,8 +11,22 @@
 
 
 	<a href="/users/<%= u.id %>/">Show Details</a>
+	<%= link_to "Delete", user_destroy_path(u.id), method: :delete%>
 	<hr>
 	<% end %>
 </main>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
